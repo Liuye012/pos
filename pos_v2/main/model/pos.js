@@ -1,6 +1,4 @@
-function Pos() {
-
-}
+function Pos() {}
 Pos.prototype.printBills = function(cart) {
   var inputslist = cart.CartItems;
   var time = new Time();
