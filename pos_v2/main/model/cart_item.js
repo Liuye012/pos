@@ -1,31 +1,33 @@
-var allItems = getAllItems();
+var allItems = loadAllItems();
 
-function CartItems(barcode, count) {
+function CartItem(barcode, count) {
   this.barcode = barcode;
   this.count = count;
-  this.attachProp();
+  this.getInfo();
 }
 
-CartItems.prototype.attachProp = function() {
-  var items = [];
-  items = allItems.filter(function(val) {
-    return val.barcode === barcode;
+CartItem.prototype.getInfo= function() {
+  var barcodeTemp = this.barcode;
+  var items = allItems.filter(function(val) {
+    return val.barcode === barcodeTemp;
   });
   return items[0];
 };
 
-CartItems.prototype.suntotal = function() {
-  return this.attachProp.price * (this.count - this.getPromotionCount);
+CartItem.prototype.subTotal = function() {
+  return this.getInfo().price * (this.count - this.getPromotionCount());
 };
 
-CartItems.prototype.getPromotionTotal = function() {
-  return this.attachProp.price * this.getPromotionCount;
+CartItem.prototype.getPromotionTotal = function() {
+  return this.getInfo().price * this.getPromotionCount();
 };
 
-CartItems.prototype.getPromotionCount = function() {
-  var promotion = loadPromotions();
-  var promotioncount;
-  promotion.barcodes.forEach(function(val) {
+CartItem.prototype.getPromotionCount = function() {
+  var promotionInfo = loadPromotions();
+  var promotioncount=0;
+  var barcode=this.barcode;
+  var count=this.count;
+  promotionInfo[0].barcodes.forEach(function(val) {
     if (val === barcode) {
       promotioncount = Math.floor(count / 3);
     }

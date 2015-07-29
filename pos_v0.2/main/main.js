@@ -10,7 +10,7 @@ function new_object(val, result) {
 
 }
 
-function find_info(val_inputs,  result) {
+function find_info(val_inputs, result) {
   var cnt = 0;
   var allItems = loadAllItems();
   allItems.forEach(function(val) {
